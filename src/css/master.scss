@@ -1,0 +1,98 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway|Roboto:100);
+$F-color:aliceblue;
+$F-family:Raleway;
+$F-family2:Roboto;
+$F-size:14vmin;
+@mixin v-h-center() {
+  display: -webkit-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin h-center() {
+  //tried .extend {@include v-h-center()};
+  @include v-h-center();
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  -o-flex-direction: row;
+  flex-direction: row;
+}
+
+body {
+  @include v-h-center;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100px;
+  /* bugged me for HOURS ! -- necessary to make flexbox center vertically on (you guessed it ... IE ... not needed to make it work on Edge though .. >.<); you don't need 100px specifially ... just something there ...*/
+  min-height: 100vh; //need to set/specify a height for the container as well !!!
+  //alternative rest of day:
+  background-color: rgb(254, 246, 141);
+  /*top colour*/
+  background-image: -webkit-linear-gradient(top, rgb(254, 246, 141), rgb(45, 193, 219));
+  background-image: -moz-linear-gradient(top, rgb(254, 246, 141), rgb(45, 193, 219));
+  background-image: -o-linear-gradient(top, rgb(254, 246, 141), rgb(45, 193, 219));
+  background-image: linear-gradient(to bottom, rgb(254, 246, 141), rgb(45, 193, 219));
+  .box {
+    @include v-h-center;
+    height: 50vw;
+    max-height: 500px;
+    width: 90vmin;
+    text-align: center; //for the <p> tags which is are not flex items
+    .innerBox {
+      text-align: center;
+      p {
+        margin: 0;
+        padding: 0; //this with the display below
+        display: inline-block; //just for me to see better if it's centered properly
+        font-size: $F-size - 6.5vmin;//7.5vmin
+        color: $F-color;
+        margin-bottom: 25px;
+        font-family: $F-family;
+        border-bottom: 2px solid #ff3232;
+      }
+      .time {
+        @include h-center;
+        width: auto;
+        height: $F-size + 8vmin; //22vmin
+        padding: 0.25vmin 0.5vmin;
+        font-size: $F-size;
+        color: $F-color;
+        font-family: $F-family2;
+        line-height: $F-size+7vmin; //21vmin
+        border-radius: 5px;
+        box-shadow: 0 0.5px 4px 1.5px $F-color;
+        .numbers {
+          border-radius: 10px;
+          // color:darkorange;
+          padding: 0 2px;
+          margin: 1.5px;
+          width: $F-size+7vmin; //21vmin
+          letter-spacing: 2px;
+          box-shadow: 0 0 3px 1px $F-color;
+        }
+        .separator {
+          line-height: 1vw;
+          margin-top: -3vmin; //meh... >.<
+        }
+      }
+      .dayMonthYear>p {
+        margin-top: 20%;
+        font-size: $F-size - 9vmin;//5vmin
+      }
+    }
+  }
+}
